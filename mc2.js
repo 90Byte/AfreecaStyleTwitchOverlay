@@ -59,7 +59,7 @@ chat.on('chat', (channel, userstate, message, self) => {
 
 	message = message.replace(/(<([^>]+)>)/ig, '');
 
-	var character = '<img class="character" src="/statics/';// '<img class="character" src="/statics/male.png" />';
+	var character = '<img class="character" src="./statics/';// '<img class="character" src="./statics/male.png" />';
 	
 	if(Math.random() > getOption('female_ratio')) {
 		character += 'male.png" />';
@@ -82,17 +82,17 @@ chat.on('chat', (channel, userstate, message, self) => {
 			*/
 
 			if(badgeName == 'subscriber'){
-				character = '<img class="character" src="/statics/';
+				character = '<img class="character" src="./statics/';
 				if(badgeVersion == 0) {
-					badges += '<img class="badge" src="/statics/ic_fanclub.gif" />';
+					badges += '<img class="badge" src="./statics/ic_fanclub.gif" />';
 					character += 'fan_';
 				}
 				else if(badgeVersion == 3 || badgeVersion == 6 ) {
-					badges += '<img class="badge" src="/statics/ic_gudok.png" />';
+					badges += '<img class="badge" src="./statics/ic_gudok.png" />';
 					character += 'fan_';
 				}
 				else/* if(badgeVersion > 6) */{
-					badges += '<img class="badge" src="/statics/ic_hot.gif" />';
+					badges += '<img class="badge" src="./statics/ic_hot.gif" />';
 					character += 'hot_';
 				}
 				if(Math.random() > getOption('female_ratio')) {
@@ -104,11 +104,11 @@ chat.on('chat', (channel, userstate, message, self) => {
 			}
 
 			if(badgeName == 'premium') {
-				badges += '<img class="badge" src="/statics/ic_quick.gif" />';
+				badges += '<img class="badge" src="./statics/ic_quick.gif" />';
 			}
 			if(badgeName == 'moderator' || badgeName == 'global_mod') {
-				badges += '<img class="badge" src="/statics/ic_manager.gif" />';
-				character = '<img class="character" src="/statics/';
+				badges += '<img class="badge" src="./statics/ic_manager.gif" />';
+				character = '<img class="character" src="./statics/';
 				if(Math.random() > getOption('female_ratio')) {
 					character += 'manager_male.png" />';
 				}
@@ -117,11 +117,11 @@ chat.on('chat', (channel, userstate, message, self) => {
 				}
 			}
 			if(badgeName == 'staff' || badgeName == 'admin') {
-				character = '<img class="character" src="/statics/spanner.png" />';
+				character = '<img class="character" src="./statics/spanner.png" />';
 			}
 			if(badgeName == 'broadcaster') {
-				badges += '<img class="badge" src="/statics/ic_bj.gif" />';
-				character = '<img class="character" src="/statics/bj_';
+				badges += '<img class="badge" src="./statics/ic_bj.gif" />';
+				character = '<img class="character" src="./statics/bj_';
 				if(getOption('gender') == 'f') {
 					character += 'female';
 				}
@@ -142,7 +142,7 @@ chat.on('chat', (channel, userstate, message, self) => {
 	}
 
 	if(userstate.username == 'ssakdook' || userstate.username == 'nightbot' || userstate.username == 'moobot') {
-		badges += '<img class="badge" src="/statics/ssakdook.png" />';
+		badges += '<img class="badge" src="./statics/ssakdook.png" />';
 	}
 
 	if(userstate['emotes-raw'] != null) {
