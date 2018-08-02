@@ -178,7 +178,8 @@ chat.on('chat', (channel, userstate, message, self) => {
 chat.connect({
 	connection: {
 		cluster: 'main',
-		reconnect: true
+		reconnect: true,
+		secure: true
 	}
 });
 
