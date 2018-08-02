@@ -1,6 +1,7 @@
-var debug_mode_ = true;
+var debug_mode_ = false;
 
 function fake_donate(nick, amount) {
+	if(!debug_mode_) return;
 	process_donate(nick, amount);
 }
 
