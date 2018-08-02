@@ -11,3 +11,6 @@
 	
 3. 옵션을 추가할 때는, channel=<채널 ID> 뒤에 &<key>=<value> 식으로 이어붙이면 됩니다.
   ex) female_ratio:0.5, max_chat:10으로 변경 => https://90byte.github.io/AfreecaStyleTwitchOverlay?channel=<채널 ID>&female_ratio=0.5&max_chat=10
+
+# USE AT YOUR OWN RISK
+본 소프트웨어를 사용함에 따르는 책임은 사용자에게 있습니다!
