@@ -40,7 +40,7 @@ zoom 값을 적절하게 설정해주심 됩니다.
 
 트윕 후원을 별풍선으로 변환해주는 기능을 추가했습니다.
 
-![balloon_step](https://90byte.github.io/AfreecaStyleTwitchOverlay/step.png)
+![balloon_step](https://90byte.github.io/AfreecaStyleTwitchOverlay/step.png) 
 
 1. 트윕 대시보드에서 Event List에 들어가세요.
 2. 주소보기를 누른 후, 'https://twip.kr/widgets/eventlist/' 이후 나와있는 코드를 복사하세요.
