@@ -22,5 +22,9 @@ zoom 값을 적절하게 설정해주심 됩니다.
 
 5. xsplit 에서 설정 시, layout tab에서 'keep aspect ratio' 옵션을 해제하고 width, height 값을 조절해 Scene에 적절하게 보이도록 설정해주세요!
 
+![lol](https://90byte.github.io/AfreecaStyleTwitchOverlay/lol.gif)
+
+재밌게 사용해주세요!
+
 # USE AT YOUR OWN RISK
 본 소프트웨어를 사용함에 따르는 책임은 사용자에게 있습니다!
