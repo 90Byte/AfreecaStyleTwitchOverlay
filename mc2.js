@@ -5,7 +5,7 @@ var defaults = {
 	subs: [],
 	gender: 'm',
 	female_ratio: 0.2,
-	max_chat: 20,
+	max_chat: 35,
 }
 var urlVars = {};
 
