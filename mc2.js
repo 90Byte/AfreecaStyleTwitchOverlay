@@ -30,7 +30,7 @@ var chat = new tmi.client({
 	connection: {
 		reconnect: true,
 		secure: true
-	}
+	},
 	channels: [getOption('channel')]
 });
 
