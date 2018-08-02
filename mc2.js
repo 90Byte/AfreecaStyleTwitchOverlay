@@ -27,6 +27,10 @@ var chat = new tmi.client({
 	options: {
 		debug: false
 	},
+	connection: {
+		reconnect: true,
+		secure: true
+	}
 	channels: [getOption('channel')]
 });
 
@@ -178,8 +182,6 @@ chat.on('chat', (channel, userstate, message, self) => {
 chat.connect({
 	connection: {
 		cluster: 'main',
-		reconnect: true,
-		secure: true
 	}
 });
 
