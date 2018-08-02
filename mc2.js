@@ -1,10 +1,12 @@
 var avatars = {};
 var badge_sets = {};
 var defaults = {
-	channel: 'hatsuney',
-	subs: []
+	channel: 'kimdoe',
+	subs: [],
+	gender: 'm',
+	female_ratio: 0.2,
+	max_chat: 20,
 }
-var lastMessageTime = 0;
 var urlVars = {};
 
 window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
@@ -23,14 +25,12 @@ function getOption(optionName) {
 
 var chat = new tmi.client({
 	options: {
-		debug: true
+		debug: false
 	},
 	channels: [getOption('channel')]
 });
 
 chat.on('connected', () => {
-	chat.emit('chat', {}, {username: 'Mikuchat'}, 'Connected to Twitch!', null);
-
 	if(urlVars.subs != null) {
 		urlVars.subs = urlVars.subs.split(',');
 	}
@@ -47,38 +47,22 @@ chat.on('roomstate', (channel, state) => {
 })
 
 chat.on('chat', (channel, userstate, message, self) => {
-	console.log(userstate);
+	//console.log(userstate);
 	var subUser = getOption('subs').indexOf(userstate.username) > -1 || userstate.subscriber;
 	var randomId = Math.floor(Math.random() * 10000000);
 	var badges = "";
 	var colors = {};
 
-	if(subUser) {
-		// console.log(user);
-		if(userstate.color != null) {
-			colors = hexToRgb(shadeBlend(0.7, userstate.color, '#000000'));
-		} else {
-			colors = hexToRgb(shadeBlend(0.7, '#ffffff', '#000000'));
-		}
-
-		if(avatars[userstate['user-id']] == null) {
-			$.get('https://api.twitch.tv/kraken/users/' + userstate['user-id'] + '?client_id=5mfq8m9p37uhi6lud582jasq6cro27&api_version=5', (data) => {
-				if(data.logo != null) {
-					avatars[userstate['user-id']] = data.logo;
-				} else {
-					avatars[userstate['user-id']] = false;
-				}
-			});
-		}
-
-	}
-
-	var lightUsernameColor = '#ffffff';
-	if(userstate.color != null) {
-		lightUsernameColor = shadeBlend(0.4, userstate.color, '#ffffff');
-	}
-
 	message = message.replace(/(<([^>]+)>)/ig, '');
+
+	var character = '<img class="character" src="/statics/';// '<img class="character" src="/statics/male.png" />';
+	
+	if(Math.random() > getOption('female_ratio')) {
+		character += 'male.png" />';
+	}
+	else {
+		character += 'female.png" />';
+	}
 
 	if(userstate['badges-raw'] != null) {
 		var badgeInstances = userstate['badges-raw'].split(',');
@@ -87,20 +71,75 @@ chat.on('chat', (channel, userstate, message, self) => {
 			var badgeTokens = badgeInstance.split('/');
 			var badgeName = badgeTokens[0];
 			var badgeVersion = badgeTokens[1];
-
+			/*
 			if(badge_sets[badgeName] != null && badge_sets[badgeName].versions[badgeVersion] != null) {
 				badges += '<img class="badge" src="' + badge_sets[badgeName].versions[badgeVersion].image_url_4x + '" />'
+			}
+			*/
+
+			if(badgeName == 'subscriber'){
+				character = '<img class="character" src="/statics/';
+				if(badgeVersion == 0) {
+					badges += '<img class="badge" src="/statics/ic_fanclub.gif" />';
+					character += 'fan_';
+				}
+				else if(badgeVersion == 3 || badgeVersion == 6 ) {
+					badges += '<img class="badge" src="/statics/ic_gudok.png" />';
+					character += 'fan_';
+				}
+				else/* if(badgeVersion > 6) */{
+					badges += '<img class="badge" src="/statics/ic_hot.gif" />';
+					character += 'hot_';
+				}
+				if(Math.random() > getOption('female_ratio')) {
+					character += 'male.png" />';
+				}
+				else {
+					character += 'female.png" />';
+				}
+			}
+
+			if(badgeName == 'premium') {
+				badges += '<img class="badge" src="/statics/ic_quick.gif" />';
+			}
+			if(badgeName == 'moderator' || badgeName == 'global_mod') {
+				badges += '<img class="badge" src="/statics/ic_manager.gif" />';
+				character = '<img class="character" src="/statics/';
+				if(Math.random() > getOption('female_ratio')) {
+					character += 'manager_male.png" />';
+				}
+				else {
+					character += 'manager_female.png" />';
+				}
+			}
+			if(badgeName == 'staff' || badgeName == 'admin') {
+				character = '<img class="character" src="/statics/spanner.png" />';
+			}
+			if(badgeName == 'broadcaster') {
+				badges += '<img class="badge" src="/statics/ic_bj.gif" />';
+				character = '<img class="character" src="/statics/bj_';
+				if(getOption('gender') == 'f') {
+					character += 'female';
+				}
+				else if(getOption('gender') == 'm') {
+					character += 'male';
+				}
+				else {
+					if(Math.random() > getOption('female_ratio')) {
+						character += 'male';
+					}
+					else {
+						character += 'female';
+					}
+				}
+				character += '.png" />';
 			}
 		}
 	}
 
-	if(subUser) {
-		if(avatars[userstate['user-id']] != null && avatars[userstate['user-id']] != false) {
-			badges += '<img class="img-circle badge" src="' + avatars[userstate['user-id']] + '" />';
-		}
+	if(userstate.username == 'ssakdook' || userstate.username == 'nightbot' || userstate.username == 'moobot') {
+		badges += '<img class="badge" src="/statics/ssakdook.png" />';
 	}
-
-	// (subUser ? '<img class="img-circle badge" src="http://mikuia.tv/img/avatars/' + userstate.username + '.jpg" width="28" height="28" /> ' : '') + '
 
 	if(userstate['emotes-raw'] != null) {
 		var emoteInstances = userstate['emotes-raw'].split('/').reverse();
@@ -115,38 +154,25 @@ chat.on('chat', (channel, userstate, message, self) => {
 			message = message.substr(0, startPos) + '<img class="emote" src="https://static-cdn.jtvnw.net/emoticons/v1/' + emoteId + '/3.0" />' + message.substr(endPos + 1);				
 
 		}
-		// var tokens = message.split(' ');
-		// console.log(tokens);
 
-
-		// for(let emoteId in userstate.emotes) {
-		// 	var instances = userstate.emotes[emoteId].reverse();
-		// 	for(var emote in instances) {
-		// 		var emotePosition = instances[emote].split('-');
-		// 		var startPos = parseInt(emotePosition[0]);
-		// 		var endPos = parseInt(emotePosition[1]);
-
-		// 		message = message.substr(0, startPos) + '<img class="emote" src="https://static-cdn.jtvnw.net/emoticons/v1/' + emoteId + '/2.0" />' + message.substr(endPos + 1);				
-		// 	}
-		// }
-
-		console.log('DETECTED EMOTES OMG');
 	}
 
-	$('#messages').append(' \
-		<span id="message_' + randomId + '" class="message ' + (subUser ? 'subscriber ' : '') + 'animated fadeIn" style="' + (subUser ? 'background-color: rgba(' + colors.r + ',' + colors.g + ',' + colors.b + ', 0.7); border: 1px solid ' + lightUsernameColor + '; ' : '') + 'border-left: 5px solid ' + lightUsernameColor + ';"> \
-			<small class="pull-right time">' + moment().format('HH:mm') + '</small> \
-			<div class="pull-left">' + badges + '</div> \
-			<b class="pull-left" style="color: ' + lightUsernameColor + ';"> ' + (userstate['display-name'] ? userstate['display-name'] : userstate.username) + '</b> \
-			<br />' + message + '</span>');
-	
-	setTimeout(() => {
-		$('#message_' + randomId).addClass('slideOutRight');
-	}, 2500);
+	var script = '<span id="message_' +randomId + '" ';
+		script += 'class="message ';
+	if(subUser){
+		script += 'subscriber';
+	}
+		script += '">';
+		script += '<div class="pull-left">' + character + '</div>';
+		script += '<b class="pull-left"> ' + badges 
+			+ (userstate['display-name'] ? userstate['display-name']+'('+userstate.username+')' : userstate.username) + ' :</b> ';
+		script += '<p class="chat_text">' + message + '</p></span>';
 
-	setTimeout(() => {
-		$('#message_' + randomId).remove();
-	}, 3500);
+	$('#messages').append(script);
+	
+	if($('.message').length > getOption('max_chat')) {
+		$('.message')[0].remove();
+	}
 });
 
 chat.connect({
@@ -155,20 +181,6 @@ chat.connect({
 		reconnect: true
 	}
 });
-
-setInterval(() => {
-	lastMessageTime -= 500;
-}, 500);
-
-// var mc2 = io.connect('http://mc2.hatsu.tv');
-
-// mc2.on('connect', (data) => {
-// 	chat.emit('chat', {}, {username: 'Mikuchat'}, 'Connected to mc2!', null);
-// });
-
-// mc2.on('hello', (data) => {
-// 	console.log(data);
-// });
 
 $.get('https://badges.twitch.tv/v1/badges/global/display?language=en', (data) => {
 	badge_sets = data.badge_sets;

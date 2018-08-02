@@ -1,15 +1,21 @@
 @import url('https://fonts.googleapis.com/css?family=Lato:300,400,700&subset=latin-ext');
 
 body {
-	font-family: 'Lato';
 	margin: 0;
 	overflow: hidden;
 	zoom: 100%;
+	background: #ffffff;
+    font-family: '돋움',dotum,AppleGothic;
 }
 
 b {
-	font-size: 20px;
-	font-weight: 700;
+	/*font-size: 20px;
+	font-weight: 700;*/
+	color: #767676;
+	margin: 0;
+    padding: 0;
+    font-size: 12px;
+    display: flex;
 }
 
 small {
@@ -18,18 +24,30 @@ small {
 
 #messages {
 	bottom: 0;
+	top:28px;
 	position: absolute;
 	width: 100%;
 }
 
-.badge {
+.chat_text {
+	position: absolute;
+	left: 42px;
+	margin-top: 15px;
+}
+
+.character {
 	height: 28px;
-	padding-right: 5px;
+	padding-right: 5px;	
+}
+
+.badge {
+	height: 14px;
+	padding-right: 2px;
 }
 
 .emote {
 	display: inline-block;
-	height: 28px;
+	height: 18px;
 	vertical-align: middle;
 }
 
@@ -37,19 +55,34 @@ small {
 	border-radius: 100px;
 }
 
+.chatbox h2 {
+	height: 18px;
+    padding: 6px 0 0 8px;
+    border-bottom: 1px solid #e1e1e1;
+    font-weight: bold;
+    font-size: 12px;
+    color: #3d82f6;
+}
+
 .message {
-	background-color: rgba(0, 0, 0, 0.7);
+	background-color: #ffffff;
+	/*top: 28px;*/
 	/*bottom: 0;*/
-	color: white;
+	color: #000000;
+	margin: 0;
+    padding: 0;
+    font-size: 12px;
+    font-family: '돋움',dotum,AppleGothic;
 	display: block;
-	font-size: 28px;
-	font-weight: 300;
-	min-height: 70px;
+	/*font-size: 28px;*/
+	/*font-weight: 300;*/
+	min-height: 30px;
 	overflow: hidden;
-	padding: 10px;
+	/*padding: 10px;*/
 	/*position: absolute;*/
 	/*width: 100%;*/
 	word-break: break-word;
+	margin: 6px 8px;
 }
 
 .pull-left {
