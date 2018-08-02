@@ -13,9 +13,14 @@
   ex) female_ratio:0.5, max_chat:10으로 변경 => https://90byte.github.io/AfreecaStyleTwitchOverlay?channel=<채널 ID>&female_ratio=0.5&max_chat=10
 
 4. 일부러 글씨가 작게 보이게 만들었습니다. 너무 안보이면 xsplit custom CSS에 다음과 같이 추가하세요.
+```css
 body {
- zoom: 200%;
+ zoom: 120%;
 }
+```
+zoom 값을 적절하게 설정해주심 됩니다.
+
+5. xsplit 에서 설정 시, layout tab에서 'keep aspect ratio' 옵션을 해제하고 width, height 값을 조절해 Scene에 적절하게 보이도록 설정해주세요!
 
 # USE AT YOUR OWN RISK
 본 소프트웨어를 사용함에 따르는 책임은 사용자에게 있습니다!
