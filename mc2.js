@@ -6,6 +6,7 @@ var defaults = {
 	gender: 'm',
 	female_ratio: 0.2,
 	max_chat: 35,
+		twip_key: null,
 }
 var urlVars = {};
 

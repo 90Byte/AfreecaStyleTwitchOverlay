@@ -1,0 +1,54 @@
+.balloon-message {
+	height:145px;
+	width:195px;
+}
+
+.balloon {
+
+     position: relative;
+	margin: 5px auto 15px auto;
+	background-repeat: no-repeat;
+	height:145px;
+	width:100%;
+	text-align: center;
+}
+
+.balloon-amount {
+	color: #ED1C24;
+	position: absolute;
+    top: 18px;
+    left: 0;
+    text-align: center;
+    width: 100%;
+    font-size: 45px;
+    font-family: arial;
+    line-height: 1.0em;
+    letter-spacing: -1px;
+    z-index: 50;
+    margin: 0;
+    padding: 0;
+}
+
+.balloon-text {
+	width: 195px;
+    position: absolute;
+    text-align: center;
+    bottom: 2px;
+    left: 0;
+    margin: 0;
+    padding: 0;
+    letter-spacing: 0;
+    line-height: 1.2em;
+    font-size: 12px;
+    font-family: '돋움',dotum,AppleGothic;
+}
+
+.balloon-text > strong {
+    color: #f5401c;
+}
+
+.balloon-text > span {
+	font-size: 11px;
+    font-weight: bold;
+    color: #333;
+}
