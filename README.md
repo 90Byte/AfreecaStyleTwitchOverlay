@@ -9,8 +9,8 @@
 	- female_ratio: 시청자가 글을 쓸 때 마다 랜덤하게 시청자 아바타의 성별이 정해집니다. 여성의 비율만 입력하며, 나머지는 남성입니다. (default: 0.2)
 	- max_chat: 한 번에 오버레이에 출력되는 채팅의 수. 스크롤이 마지막 채팅까지 채워지면 올라가게 되어있으므로 써보시고 적당한 크기를 알아서 찾으세요.(default: 20)
 	
-3. 옵션을 추가할 때는, channel=<채널 ID> 뒤에 &<key>=<value> 식으로 이어붙이면 됩니다.
-  ex) female_ratio:0.5, max_chat:10으로 변경 => https://90byte.github.io/AfreecaStyleTwitchOverlay?channel=<채널 ID>&female_ratio=0.5&max_chat=10
+3. 옵션을 추가할 때는, channel=<채널 ID> 뒤에 &<키>=<값> 식으로 이어붙이면 됩니다.
+  - ex) female_ratio:0.5, max_chat:10으로 변경 => https://90byte.github.io/AfreecaStyleTwitchOverlay?channel=<채널 ID>&female_ratio=0.5&max_chat=10
 
 4. 일부러 글씨가 작게 보이게 만들었습니다. 너무 안보이면 xsplit custom CSS에 다음과 같이 추가하세요.
 ```css
