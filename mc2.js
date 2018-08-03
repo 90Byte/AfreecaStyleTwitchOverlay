@@ -46,7 +46,7 @@ chat.on('chat', (channel, userstate, message, self) => {
 
 	message = message.replace(/(<([^>]+)>)/ig, '');
 
-	if(getOption('allow_balloon')){
+	if(getOption('allow_balloon') != null){
 		var name = userstate['display-name']?userstate['display-name']:userstate.username;
 		if(balloon_recorder[userstate.username]) {
 			if((getTS() - balloon_recorder[userstate.username])/60000 > getOption('allow_balloon')) {
