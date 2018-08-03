@@ -1,28 +1,5 @@
 var avatars = {};
 var badge_sets = {};
-var defaults = {
-	channel: 'kimdoe',
-	subs: [],
-	gender: 'm',
-	female_ratio: 0.2,
-	max_chat: 35,
-		twip_key: null,
-}
-var urlVars = {};
-
-window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-	urlVars[key] = value;
-});
-
-function getOption(optionName) {
-	if(urlVars[optionName] != null) {
-		return urlVars[optionName];
-	} else if(defaults[optionName] != null) {
-		return defaults[optionName];
-	} else {
-		return null;
-	}
-}
 
 var chat = new tmi.client({
 	options: {
@@ -52,7 +29,7 @@ chat.on('roomstate', (channel, state) => {
 })
 
 chat.on('chat', (channel, userstate, message, self) => {
-	//console.log(userstate);
+	if(debug_mode_) console.log(userstate);
 	var subUser = getOption('subs').indexOf(userstate.username) > -1 || userstate.subscriber;
 	var randomId = Math.floor(Math.random() * 10000000);
 	var badges = "";
@@ -60,7 +37,7 @@ chat.on('chat', (channel, userstate, message, self) => {
 
 	message = message.replace(/(<([^>]+)>)/ig, '');
 
-	var character = '<img class="character" src="./statics/';// '<img class="character" src="./statics/male.png" />';
+	var character = '<img class="character" src="statics/';// '<img class="character" src="statics/male.png" />';
 	
 	if(Math.random() > getOption('female_ratio')) {
 		character += 'male.png" />';
@@ -83,17 +60,17 @@ chat.on('chat', (channel, userstate, message, self) => {
 			*/
 
 			if(badgeName == 'subscriber'){
-				character = '<img class="character" src="./statics/';
+				character = '<img class="character" src="statics/';
 				if(badgeVersion == 0) {
-					badges += '<img class="badge" src="./statics/ic_fanclub.gif" />';
+					badges += '<img class="badge" src="statics/ic_gudok.png" />';
 					character += 'fan_';
 				}
 				else if(badgeVersion == 3 || badgeVersion == 6 ) {
-					badges += '<img class="badge" src="./statics/ic_gudok.png" />';
+					badges += '<img class="badge" src="statics/ic_fanclub.gif" />';
 					character += 'fan_';
 				}
 				else/* if(badgeVersion > 6) */{
-					badges += '<img class="badge" src="./statics/ic_hot.gif" />';
+					badges += '<img class="badge" src="statics/ic_hot.gif" />';
 					character += 'hot_';
 				}
 				if(Math.random() > getOption('female_ratio')) {
@@ -105,11 +82,11 @@ chat.on('chat', (channel, userstate, message, self) => {
 			}
 
 			if(badgeName == 'premium') {
-				badges += '<img class="badge" src="./statics/ic_quick.gif" />';
+				badges += '<img class="badge" src="statics/ic_quick.gif" />';
 			}
 			if(badgeName == 'moderator' || badgeName == 'global_mod') {
-				badges += '<img class="badge" src="./statics/ic_manager.gif" />';
-				character = '<img class="character" src="./statics/';
+				badges += '<img class="badge" src="statics/ic_manager.gif" />';
+				character = '<img class="character" src="statics/';
 				if(Math.random() > getOption('female_ratio')) {
 					character += 'manager_male.png" />';
 				}
@@ -118,11 +95,11 @@ chat.on('chat', (channel, userstate, message, self) => {
 				}
 			}
 			if(badgeName == 'staff' || badgeName == 'admin') {
-				character = '<img class="character" src="./statics/spanner.png" />';
+				character = '<img class="character" src="statics/spanner.png" />';
 			}
 			if(badgeName == 'broadcaster') {
-				badges += '<img class="badge" src="./statics/ic_bj.gif" />';
-				character = '<img class="character" src="./statics/bj_';
+				badges += '<img class="badge" src="statics/ic_bj.gif" />';
+				character = '<img class="character" src="statics/bj_';
 				if(getOption('gender') == 'f') {
 					character += 'female';
 				}
@@ -143,23 +120,34 @@ chat.on('chat', (channel, userstate, message, self) => {
 	}
 
 	if(userstate.username == 'ssakdook' || userstate.username == 'nightbot' || userstate.username == 'moobot') {
-		badges += '<img class="badge" src="./statics/ssakdook.png" />';
+		badges += '<img class="badge" src="statics/ssakdook.png" />';
 	}
 
-	if(userstate['emotes-raw'] != null) {
-		var emoteInstances = userstate['emotes-raw'].split('/').reverse();
-		for(let emoteInstanceId in emoteInstances) {
-			var emoteInstance = emoteInstances[emoteInstanceId];
-			var emoteTokens = emoteInstance.split(':');
-			var emoteId = emoteTokens[0];
-			var emotePos = emoteTokens[1].split('-');
-			var startPos = parseInt(emotePos[0]);
-			var endPos = parseInt(emotePos[1]);
-
-			message = message.substr(0, startPos) + '<img class="emote" src="https://static-cdn.jtvnw.net/emoticons/v1/' + emoteId + '/3.0" />' + message.substr(endPos + 1);				
-
+	if(userstate['emotes'] != null) {
+		var mixed = {};
+		var emoteInstances = userstate['emotes'];
+		for(let emotesId in emoteInstances) {
+			var emoteTokens = emoteInstances[emotesId];
+			for(let token in emoteTokens) {
+				var splitedToken = emoteTokens[token].split('-');
+				mixed[parseInt(splitedToken[0])] = emotesId;
+				mixed[parseInt(splitedToken[1])] = null;
+			}
 		}
 
+		var new_message = '';
+		var last_idx = 0;
+		for(let key in mixed) {
+			if(!mixed[key]) { //if value is null == key is end position of emoji
+				last_idx = key + 1;
+			}
+			else {
+				new_message += message.substr(last_idx, key);
+				new_message += '<img class="emote" src="https://static-cdn.jtvnw.net/emoticons/v1/' + mixed[key] + '/3.0" />'
+
+			}
+		}
+		message = new_message;
 	}
 
 	var script = '<span id="message_' +randomId + '" ';
@@ -175,9 +163,7 @@ chat.on('chat', (channel, userstate, message, self) => {
 
 	$('#messages').append(script);
 	
-	if($('.message').length > getOption('max_chat')) {
-		$('.message')[0].remove();
-	}
+	deleteIfOverHeight();
 });
 
 chat.connect({

@@ -1,36 +1,17 @@
 <html>
 	<head>
 		<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/jquery/2.2.2/jquery.min.js"></script>
-		<script type="text/javascript">
-			var defaults = {
-				twip_key: null,
-			}
-			var urlVars = {};
-
-			window.location.href.replace(/[?&]+([^=&]+)=([^&]*)/gi, (m, key, value) => {
-				urlVars[key] = value;
-			});
-
-			function getOption(optionName) {
-				if(urlVars[optionName] != null) {
-					return urlVars[optionName];
-				} else if(defaults[optionName] != null) {
-					return defaults[optionName];
-				} else {
-					return null;
-				}
-			}
-		</script>
 		<script type="text/javascript" src='https://assets.mytwip.net/lib/socket.io.js'></script>
-		<script type="text/javascript" src="./twiptoballoon.js"></script>
+		<script type="text/javascript" src="utils.js"></script>
+		<script type="text/javascript" src="twiptoballoon.js"></script>
 		<link rel="stylesheet" href="mc2.css" media="all" />
 		<link rel="stylesheet" href="balloon.css" />
 		<meta name="referrer" content="no-referrer">
 	</head>
 	<body>
 		<div id="messages">
-			<span id="message_2152408" class="message subscriber"><div class="pull-left"><img class="character" src="./statics/fan_male.png"></div><b> <img class="badge" src="./statics/ic_fanclub.gif"><img class="badge" src="./statics/ic_bj.gif" />썸띵온요마읜(kimdoooooojoaaaa) :</b> <p class="chat_text">asdasdasd</p></span>
-			<span id="message_1186009" class="message "><div class="pull-left"><img class="character" src="./statics/male.png"></div><b> <img class="badge" src="./statics/ic_hot.gif" />불타는모근헌터(asdasd) :</b> <p class="chat_text">ㅗㅜㅑ</p></span>
+			<span id="message_2152408" class="message subscriber"><div class="pull-left"><img class="character" src="statics/fan_male.png"></div><b> <img class="badge" src="statics/ic_fanclub.gif"><img class="badge" src="statics/ic_bj.gif" />썸띵온요마읜(kimdoooooojoaaaa) :</b> <p class="chat_text">asdasdasd</p></span>
+			<span id="message_1186009" class="message "><div class="pull-left"><img class="character" src="statics/male.png"></div><b> <img class="badge" src="statics/ic_hot.gif" />불타는모근헌터(asdasd) :</b> <p class="chat_text">ㅗㅜㅑ</p></span>
 			<div class="message balloon-message">
 				<div class="balloon balloon4">
 					<div class="balloon-amount">500</div>
@@ -38,8 +19,8 @@
 					<div class="balloon-text"><strong>삘리뽀님께서</strong><br><span>별풍선 500개 선물!</span></div>
 				</div>
 			</div>
-			<span id="message_5113169" class="message subscriber"><div class="pull-left"><img class="character" src="./statics/fan_male.png"></div><b> <img class="badge" src="./statics/ic_fanclub.gif"><img class="badge" src="./statics/ic_quick.gif" />트수(a12345123) :</b> <p class="chat_text">ㄹㄹㄹㄹㄹㄹㄹㄹㄹ</p></span>
-			<span id="message_5113169" class="message subscriber"><div class="pull-left"><img class="character" src="./statics/fan_male.png"></div><b> <img class="badge" src="./statics/ic_fanclub.gif"><img class="badge" src="./statics/ic_manager.gif" />트수(a12345123) :</b> <p class="chat_text">아 삘리뽀 님께서</p></span>
+			<span id="message_5113169" class="message subscriber"><div class="pull-left"><img class="character" src="statics/fan_male.png"></div><b> <img class="badge" src="statics/ic_fanclub.gif"><img class="badge" src="statics/ic_quick.gif" />트수(a12345123) :</b> <p class="chat_text">ㄹㄹㄹㄹㄹㄹㄹㄹㄹ</p></span>
+			<span id="message_5113169" class="message subscriber"><div class="pull-left"><img class="character" src="statics/fan_male.png"></div><b> <img class="badge" src="statics/ic_fanclub.gif"><img class="badge" src="statics/ic_manager.gif" />트수(a12345123) :</b> <p class="chat_text">아 삘리뽀 님께서</p></span>
 		</div>
 	</body>
 </html>
