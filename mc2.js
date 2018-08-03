@@ -27,7 +27,8 @@ chat.on('roomstate', (channel, state) => {
 			}
 		});
 	}
-})
+});
+
 function balloon_check(displayName, username, message) {
 	var balloon = /^#balloon:([0-9]{1,5})/.exec(message);
 	if(balloon) {
@@ -37,6 +38,7 @@ function balloon_check(displayName, username, message) {
 	}
 	return false;
 }
+
 chat.on('chat', (channel, userstate, message, self) => {
 	if(debug_mode_) console.log(userstate);
 	var subUser = getOption('subs').indexOf(userstate.username) > -1 || userstate.subscriber;
@@ -187,6 +189,11 @@ chat.on('chat', (channel, userstate, message, self) => {
 	$('#messages').append(script);
 	
 	deleteIfOverHeight();
+});
+
+chat.on('cheer', function(channel, userstate, message) {
+	//1bits = 10 won
+	process_donate(userstate['display-name']?userstate['display-name']:userstate.username, parseInt(userstate['bits'])/10);
 });
 
 chat.connect({
