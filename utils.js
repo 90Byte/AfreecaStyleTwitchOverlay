@@ -5,6 +5,7 @@ var defaults = {
 	female_ratio: 0.2,
 	max_chat: null,
 	twip_key: null,
+	allow_balloon: null,
 }
 var urlVars = {};
 
@@ -33,6 +34,10 @@ function deleteIfOverHeight() {
 			$('.message')[0].remove();
 		}
 	}
+}
+
+function getTS() {
+	return new Date().getTime();
 }
 
 var debug_mode_ = false;

@@ -1,5 +1,6 @@
 var avatars = {};
 var badge_sets = {};
+var balloon_recorder = {};
 
 var chat = new tmi.client({
 	options: {
@@ -27,7 +28,15 @@ chat.on('roomstate', (channel, state) => {
 		});
 	}
 })
-
+function balloon_check(displayName, username, message) {
+	var balloon = /^#balloon:([0-9]{1,5})/.exec(message);
+	if(balloon) {
+		process_donate(displayName, parseInt(balloon[1]*100));
+		balloon_recorder[username] = getTS();
+		return true;
+	}
+	return false;
+}
 chat.on('chat', (channel, userstate, message, self) => {
 	if(debug_mode_) console.log(userstate);
 	var subUser = getOption('subs').indexOf(userstate.username) > -1 || userstate.subscriber;
@@ -36,6 +45,20 @@ chat.on('chat', (channel, userstate, message, self) => {
 	var colors = {};
 
 	message = message.replace(/(<([^>]+)>)/ig, '');
+
+	if(getOption('allow_balloon')){
+		var name = userstate['display-name']?userstate['display-name']:userstate.username;
+		if(balloon_recorder[userstate.username]) {
+			if((getTS() - balloon_recorder[userstate.username])/60000 > getOption('allow_balloon')) {
+				if(balloon_check(name, userstate.username, message))
+					return;
+			}
+		}
+		else {
+			if(balloon_check(name, userstate.username, message))
+				return;
+		}
+	}
 
 	var character = '<img class="character" src="statics/';// '<img class="character" src="statics/male.png" />';
 	
