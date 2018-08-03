@@ -169,7 +169,7 @@ chat.on('chat', (channel, userstate, message, self) => {
 	}
 		script += '">';
 		script += '<div class="pull-left">' + character + '</div>';
-		script += '<b class="pull-left"> ' + badges 
+		script += '<b> ' + badges 
 			+ (userstate['display-name'] ? userstate['display-name']+'('+userstate.username+')' : userstate.username) + ' :</b> ';
 		script += '<p class="chat_text">' + message + '</p></span>';
 
