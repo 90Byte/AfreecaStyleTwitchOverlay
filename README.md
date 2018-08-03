@@ -35,16 +35,10 @@ zoom 값을 적절하게 설정해주심 됩니다.
 
 5. xsplit 에서 설정 시, layout tab에서 'keep aspect ratio' 옵션을 해제하고 width, height 값을 조절해 Scene에 적절하게 보이도록 설정해주세요!
 
-# 별풍선 알림 기능 추가!
-![balloon_capture](https://90byte.github.io/AfreecaStyleTwitchOverlay/balloon_capture.png)
+# ~~별풍선 알림 기능 추가!~~
 
-트윕 후원을 별풍선으로 변환해주는 기능을 추가했습니다.
-
-
-1. 트윕 대시보드에서 Event List에 들어가세요.
-2. 주소보기를 누른 후, 'https://twip.kr/widgets/eventlist/' 이후 나와있는 코드를 복사하세요.
-3. 상기한 옵션 입력법을 이용해 'twip_key'에 해당 코드를 입력해주세요. (&twip_key=<코드>)
-4. 코드가 타인에게 알려지지 않게 주의하세요!
+~~트윕 후원을 별풍선으로 변환해주는 기능을 추가했습니다.~~
+해당 기능은 문제의 소지가 있어서 삭제됐습니다... 흑흑흑...
 
 재밌게 사용해주세요!
 
