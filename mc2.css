@@ -48,8 +48,9 @@ small {
 
 .emote {
 	display: inline-block;
-	height: 18px;
+	height: 28px;
 	vertical-align: middle;
+	margin: 0 1 0 1;
 }
 
 .img-circle {
