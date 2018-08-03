@@ -193,7 +193,7 @@ chat.on('chat', (channel, userstate, message, self) => {
 
 chat.on('cheer', function(channel, userstate, message) {
 	//1bits = 10 won
-	process_donate(userstate['display-name']?userstate['display-name']:userstate.username, parseInt(userstate['bits'])/10);
+	process_donate(userstate['display-name']?userstate['display-name']:userstate.username, parseInt(userstate['bits'])*10);
 });
 
 chat.connect({
