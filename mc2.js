@@ -30,9 +30,9 @@ chat.on('roomstate', (channel, state) => {
 });
 
 function balloon_check(displayName, username, message) {
-	var balloon = /^#balloon:([0-9]{1,5})/.exec(message);
+	var balloon = /^#balloon:([0-9]{1,3})/.exec(message);
 	if(balloon) {
-		process_donate(displayName, parseInt(balloon[1]*100));
+		process_donate(displayName, parseInt(balloon[1]));
 		balloon_recorder[username] = getTS();
 		return true;
 	}
@@ -193,7 +193,8 @@ chat.on('chat', (channel, userstate, message, self) => {
 
 chat.on('cheer', function(channel, userstate, message) {
 	//1bits = 10 won
-	process_donate(userstate['display-name']?userstate['display-name']:userstate.username, parseInt(userstate['bits'])*10);
+	process_donate(userstate['display-name']?userstate['display-name']:userstate.username
+		, parseInt(userstate['bits'])*10);
 });
 
 chat.connect({

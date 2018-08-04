@@ -1,11 +1,11 @@
 function fake_donate(nick, amount) {
 	if(!debug_mode_) return;
-	process_donate(nick, amount);
+	process_donate(nick, amount/100);
 }
 
 function process_donate(nick, amount) {
 	if(debug_mode_) console.log(nick, amount);
-	var balloon_amount = parseInt(amount/ 100);
+	var balloon_amount = parseInt(amount);
 	var balloon_class = 2;
 	if(balloon_amount >= 100)
 		balloon_class = 4;
