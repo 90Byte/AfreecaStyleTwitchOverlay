@@ -106,7 +106,7 @@ chat.on('chat', (channel, userstate, message, self) => {
 				}
 			}
 
-			if(badgeName == 'premium') {
+			if(badgeName == 'premium' || badgeName == 'turbo') {
 				badges += '<img class="badge" src="statics/ic_quick.gif" />';
 			}
 			if(badgeName == 'moderator' || badgeName == 'global_mod') {
