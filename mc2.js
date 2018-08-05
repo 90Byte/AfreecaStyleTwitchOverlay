@@ -150,7 +150,8 @@ chat.on('chat', (channel, userstate, message, self) => {
 	}
 
 	if(userstate.username == 'ssakdook' || userstate.username == 'nightbot' || userstate.username == 'moobot') {
-		badges += '<img class="badge" src="statics/ssakdook.png" />';
+		character = '<img class="character" src="statics/spanner.png" />';
+		badges = '<img class="badge" src="statics/ssakdook.png" />';
 	}
 
 	if(userstate['emotes'] != null) {
@@ -203,15 +204,30 @@ chat.on('cheer', (channel, userstate, message) => {
 });
 
 chat.on('action', (channel, userstate, message, self) => {
-	if(userstate.username !== 'twipkr')
-		return;
+	if(self) return;
+
 	if(debug_mode_) console.log(message);
-	var result = /([\w\W가-힣ㄱ-ㅎ ]*)님[, ]*([0-9,]*)원/.exec(message);
-	if(debug_mode_) console.log(result);
-	if(!result || !result[1] || !result[2])
-		return;
-	var money = parseInt(result[2].replace(',', ''));
-	process_donate(result[1], money*balloon_ratio);
+	if(userstate.username === 'twipkr') {
+		var result = /([\w\W가-힣ㄱ-ㅎ ]*)님[, ]*([0-9,]*)원/.exec(message);
+		if(debug_mode_) console.log(result);
+		if(result && result[1] && result[2]){
+			var money = parseInt(result[2].replace(',', ''));
+			process_donate(result[1], money*balloon_ratio);
+			return;
+		}
+	}
+	var badges = '<img class="badge" src="statics/ssakdook.png" />';
+	var script = '<span id="message_' +randomId + '" class="message">';
+	var character = '<img class="character" src="statics/spanner.png" />';
+	var randomId = Math.floor(Math.random() * 10000000);
+	script += '<div class="pull-left">' + character + '</div>';
+	script += '<b> ' + badges 
+	+ (userstate['display-name'] ? userstate['display-name']+'('+userstate.username+')' : userstate.username) + ' :</b> ';
+	script += '<p class="chat_text">' + message + '</p></span>';
+
+	$('#messages').append(script);
+	
+	deleteIfOverHeight();
 });
 
 chat.connect({
