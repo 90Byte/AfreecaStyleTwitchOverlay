@@ -205,8 +205,13 @@ chat.on('cheer', (channel, userstate, message) => {
 chat.on('action', (channel, userstate, message, self) => {
 	if(userstate.username !== 'twipkr')
 		return;
+	if(debug_mode_) console.log(message);
 	var result = /([\w\W가-힣ㄱ-ㅎ ]*)님[, ]*([0-9,]*)원/.exec(message);
-	process_donate(result[1], parseInt(result[2].replace(',', ''))*balloon_ratio);
+	if(debug_mode_) console.log(result);
+	if(!result || !result[1] || !result[2])
+		return;
+	var money = parseInt(result[2].replace(',', ''));
+	process_donate(result[1], money*balloon_ratio);
 });
 
 chat.connect({
