@@ -32,6 +32,15 @@
 			console.log(message);
 		});
 
+		chat.on("notice", function (channel, msgid, message) {
+			console.log(channel, msgid, message);
+		});
+
+		chat.on("action", function (channel, userstate, message, self) {
+		if (self) return;
+		console.log(channel, userstate, message);
+	});
+
 		chat.connect();
 	</script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/animate.css/3.5.1/animate.min.css" media="all" />

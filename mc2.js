@@ -2,6 +2,8 @@ var avatars = {};
 var badge_sets = {};
 var balloon_recorder = {};
 
+var balloon_ratio = 1;
+
 var chat = new tmi.client({
 	options: {
 		debug: false
@@ -16,6 +18,9 @@ var chat = new tmi.client({
 chat.on('connected', () => {
 	if(urlVars.subs != null) {
 		urlVars.subs = urlVars.subs.split(',');
+	}
+	if(getOption('allow_balloon') == null) {
+		balloon_ratio = 0.1;
 	}
 });
 
@@ -191,10 +196,17 @@ chat.on('chat', (channel, userstate, message, self) => {
 	deleteIfOverHeight();
 });
 
-chat.on('cheer', function(channel, userstate, message) {
+chat.on('cheer', (channel, userstate, message) => {
 	//1bits = 10 won
 	process_donate(userstate['display-name']?userstate['display-name']:userstate.username
-		, parseInt(userstate['bits'])*10);
+		, parseInt(userstate['bits'])*10*balloon_ratio);
+});
+
+chat.on('action', (channel, userstate, message, self) => {
+	if(userstate.username !== 'twipkr')
+		return;
+	var result = /([\w\W가-힑ㄱ-ㅎ ]*)님[, ]*([0-9,]*)원/.exec(message);
+	process_donate(result[1], parseInt(result[2].replace(',', ''))*balloon_ratio);
 });
 
 chat.connect({
